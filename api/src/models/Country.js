@@ -14,9 +14,11 @@ module.exports = (sequelize) => {
       allowNull: false,
         },
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
-    },
+      primaryKey: true,
+      autoIncrement: true
+       },
     continents: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -45,10 +47,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    languages: {
-      type: DataTypes.STRING, 
-      allowNull: true,
-    }
+    // languages: {
+    //   type: DataTypes.STRING, 
+    //   allowNull: true,
+    // }
   },
   {
     timestamps: false

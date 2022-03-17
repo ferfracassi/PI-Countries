@@ -24,11 +24,11 @@ const sequelize = require('sequelize');//cargue sequelize porque uso el metodo F
 
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(async () => {
+conn.sync({ force: true}).then(async () => {
   
     try {
       const getApiData = await axios.get("http://restcountries.com/v3.1/all");
-      console.log(getApiData.data) 
+      //console.log(getApiData.data) 
       getApiData.data.forEach(pais => {
           //console.log(getApiData.data) Me revento la Terminal, me parecio necesario saber que llegaba.
           //Quizas tendria que haberlo hecho una linea mas arriba.
@@ -36,8 +36,9 @@ conn.sync({ force: false }).then(async () => {
           {
             where: { name: pais.name.common },
             where: { nameOfficial: pais.name.official },
+            //where: { languages: pais.languages.spa },
             defaults: {
-              id: pais.cca3,
+              id: pais.ccn3,
               name: pais.name.common,
               nameOfficial: pais.name.official,
               continents: pais.continents,
@@ -47,18 +48,18 @@ conn.sync({ force: false }).then(async () => {
               borders: pais.borders || 'empty',
               area: pais.area,
               population: pais.population,
-              languages: pais.languages.spa,
+              //languages: pais.languages.spa,
             }
           } 
         ) 
       });
 
-  //console.log( Country);
+  //;
 
-    } catch (error) {
-      res.status(404).json({error});
-    }
-  
+     } finally {} // } catch (error) {
+    //   res.status(404).json({error});
+    // }
+ 
     console.log('Countries loaded to the database.');
 
   server.listen(3001, () => {
