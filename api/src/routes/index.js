@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { Sequelize } = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize');
 const { Country, Activity } = require('./models');
 
 // Importar todos los routers;
@@ -13,25 +13,22 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 const getApiInfo = async () => {
-    const apiUrl = await axios.get("https://breakingbadapi.com/api/characters");
+    const apiUrl = await axios.get("https://restcountries.com/v3/all");
     const apiInfo = await apiUrl.data.map(el => {
       return {
         id: el.id,
         name: el.name,
         flagImg: el.img,
         continente: el.region,
-        capital: el.capital,
+        capital: country.hasOwnProperty('capital') ? country.capital[0] : 'None',
         subregion: el.subregion,
         area: el.area,
-        population: el.population,
-        
-        occupation: el.occupation.map(el => el),
-        appearance: el.appearance.map(el => el),
-        createdInDb: false,
+        population: el.population
       };
     });
+    console.log(apiInfo)
     return apiInfo;
-    
+   
   };
 
 module.exports = router;
