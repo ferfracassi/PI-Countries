@@ -5,6 +5,12 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('country', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+       },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -13,12 +19,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
         },
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
-       },
     continents: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     borders: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     area: {
@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
     // }
   },
   {
-    timestamps: false
+    timestamps: true
   });
 };
 

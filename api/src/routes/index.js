@@ -16,17 +16,19 @@ const getApiInfo = async () => {
     const apiUrl = await axios.get("https://restcountries.com/v3/all");
     const apiInfo = await apiUrl.data.map(el => {
       return {
-        id: el.id,
-        name: el.name,
-        flagImg: el.img,
-        continente: el.region,
-        capital: country.hasOwnProperty('capital') ? country.capital[0] : 'None',
-        subregion: el.subregion,
+        id: el.ccn3,
+        name: el.name.common,
+        nameOfficial: el.name.official,
+        continents: el.region, 
+        subregion: el.subregion || 'empty',
+        capital: el.hasOwnProperty('capital') ? el.capital[0] : 'None', 
+        flags: el.flags.svg,
+        borders: el.borders || 'None',
         area: el.area,
-        population: el.population
+        population: el.population,
       };
     });
-    console.log(apiInfo)
+   // console.log(apiInfo)
     return apiInfo;
    
   };
